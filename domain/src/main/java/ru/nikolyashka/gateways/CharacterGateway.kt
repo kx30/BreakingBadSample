@@ -1,10 +1,10 @@
 package ru.nikolyashka.gateways
 
-import ru.nikolyashka.response.CharacterResponse
+import ru.nikolyashka.domain.CharacterType
 
 
 interface CharacterGateway {
 
-    fun getInitialData(): List<CharacterResponse>
-    suspend fun getCharacters(): List<CharacterResponse>
+    fun getInitialData(): List<CharacterType>
+    suspend fun getCharacters(): List<CharacterType>
 }

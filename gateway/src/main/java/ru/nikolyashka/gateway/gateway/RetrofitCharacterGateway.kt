@@ -1,12 +1,17 @@
-package ru.nikolyashka.gateway.gateways
+package ru.nikolyashka.gateway.gateway
 
+import ru.nikolyashka.core.Mapper
+import ru.nikolyashka.domain.CharacterType
 import ru.nikolyashka.gateway.Api
 import ru.nikolyashka.gateway.Api.Companion.DEFAULT_OFFSET
+import ru.nikolyashka.gateway.models.responses.CharacterResponse
 import ru.nikolyashka.gateways.CharacterGateway
-import ru.nikolyashka.response.CharacterResponse
 import javax.inject.Inject
 
-class RetrofitCharacterGateway @Inject constructor(private val api: Api) : CharacterGateway {
+class RetrofitCharacterGateway @Inject constructor(
+    private val api: Api,
+    private val mapper: Mapper<List<@JvmSuppressWildcards CharacterType>, List<@JvmSuppressWildcards CharacterResponse>>
+) : CharacterGateway {
 
     private val characterList = ArrayList<CharacterResponse>()
 
@@ -17,17 +22,17 @@ class RetrofitCharacterGateway @Inject constructor(private val api: Api) : Chara
     private var currentPage = 0
 
 
-    override fun getInitialData(): List<CharacterResponse> = emptyList()
+    override fun getInitialData(): List<CharacterType> = mapper.map(characterList)
 
-    override suspend fun getCharacters(): List<CharacterResponse> {
+    override suspend fun getCharacters(): List<CharacterType> {
         if (currentPage >= totalPages) {
-            return characterList
+            return mapper.map(characterList)
         }
         val characters = api.getCharacters(currentPage * DEFAULT_OFFSET)
         if (characters.isNotEmpty()) {
             characterList.addAll(characters)
             currentPage++
         }
-        return characterList
+        return mapper.map(characterList)
     }
 }

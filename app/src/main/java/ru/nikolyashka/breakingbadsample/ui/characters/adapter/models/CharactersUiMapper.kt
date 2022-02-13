@@ -6,6 +6,7 @@ import javax.inject.Inject
 
 class CharactersUiMapper @Inject constructor() :
     Mapper<List<@JvmSuppressWildcards CharacterUiType>, List<@JvmSuppressWildcards CharacterType>> {
+    // Todo: Убрать листы из дженериков
 
     private val characterMapper = CharacterUiMapper(CharacterUiViewType.CHARACTER_UI_TYPE)
     private val fullScreenErrorMapper = CharacterUiMapper(CharacterUiViewType.CHARACTER_FULL_SCREEN_ERROR)

@@ -2,7 +2,7 @@ package ru.nikolyashka.gateway
 
 import retrofit2.http.GET
 import retrofit2.http.Query
-import ru.nikolyashka.response.CharacterResponse
+import ru.nikolyashka.gateway.models.responses.CharacterResponse
 
 interface Api {
 

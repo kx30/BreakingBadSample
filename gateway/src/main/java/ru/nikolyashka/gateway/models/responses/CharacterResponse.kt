@@ -1,4 +1,4 @@
-package ru.nikolyashka.response
+package ru.nikolyashka.gateway.models.responses
 
 import com.google.gson.annotations.SerializedName
 

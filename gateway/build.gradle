@@ -39,6 +39,9 @@ android {
 dependencies {
     implementation project(":domain")
 
+    implementation "androidx.core:core-ktx:$ktxCoreVersion"
+    implementation "androidx.appcompat:appcompat:$appCompatVersion"
+
     // Hilt
     implementation "com.google.dagger:hilt-android:$hiltVersion"
     kapt "com.google.dagger:hilt-compiler:$hiltVersion"
@@ -47,6 +50,7 @@ dependencies {
     implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
     implementation "com.squareup.retrofit2:converter-gson:$retrofitVersion"
 
-    implementation "androidx.core:core-ktx:$ktxCoreVersion"
-    implementation "androidx.appcompat:appcompat:$appCompatVersion"
+    // Room
+    implementation "androidx.room:room-ktx:$roomVersion"
+    kapt "androidx.room:room-compiler:$roomVersion"
 }
