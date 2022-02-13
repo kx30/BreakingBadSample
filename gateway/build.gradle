@@ -20,6 +20,11 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+
+            buildConfigField("String", "BASE_URL", "\"https://www.breakingbadapi.com/\"")
+        }
+        debug {
+            buildConfigField("String", "BASE_URL", "\"https://www.breakingbadapi.com/\"")
         }
     }
     compileOptions {
@@ -40,6 +45,7 @@ dependencies {
 
     // Retrofit
     implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
+    implementation "com.squareup.retrofit2:converter-gson:$retrofitVersion"
 
     implementation "androidx.core:core-ktx:$ktxCoreVersion"
     implementation "androidx.appcompat:appcompat:$appCompatVersion"

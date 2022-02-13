@@ -2,4 +2,7 @@
     <string name="app_name">BreakingBadSample</string>
     <string name="favorites">Избранные</string>
     <string name="characters">Персонажи</string>
+
+    <string name="network_unavailable">Network unavailable. Try again</string>
+    <string name="something_went_wrong">Something went wrong. Try again</string>
 </resources>

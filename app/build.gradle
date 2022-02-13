@@ -57,6 +57,10 @@ dependencies {
     // OkHttp
     implementation "com.squareup.okhttp3:logging-interceptor:$okHttp3Version"
 
+    // Chuck
+    debugImplementation "com.readystatesoftware.chuck:library:$chuckVersion"
+    releaseImplementation "com.readystatesoftware.chuck:library-no-op:$chuckVersion"
+
     // Hilt
     implementation "com.google.dagger:hilt-android:$hiltVersion"
     kapt "com.google.dagger:hilt-compiler:$hiltVersion"
