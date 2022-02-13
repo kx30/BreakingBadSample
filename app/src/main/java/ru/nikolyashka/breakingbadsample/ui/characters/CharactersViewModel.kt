@@ -10,12 +10,12 @@ import kotlinx.coroutines.launch
 import ru.nikolyashka.breakingbadsample.ui.characters.adapter.models.CharacterUiType
 import ru.nikolyashka.core.Mapper
 import ru.nikolyashka.domain.CharacterType
-import ru.nikolyashka.gateways.CharacterGateway
+import ru.nikolyashka.usecase.CharacterUseCase
 import javax.inject.Inject
 
 @HiltViewModel
 class CharactersViewModel @Inject constructor(
-    private val characterGateway: CharacterGateway,
+    private val characterUseCase: CharacterUseCase,
     private val mapper: Mapper<List<CharacterUiType>, List<CharacterType>>
 ) : ViewModel() {
 
@@ -26,11 +26,19 @@ class CharactersViewModel @Inject constructor(
 
 
     init {
-        onLoadData()
+        _characters.value = mapper.map(characterUseCase.getInitialData())
     }
 
     fun onAddToFavorite(character: CharacterUiType.CharacterUiModel) {
-
+        // Todo: вынести в юзкейс
+        _characters.value = _characters.value?.map {
+            if (it is CharacterUiType.CharacterUiModel) {
+                if (it.id == character.id) {
+                    return@map it.copy(isFavorite = !it.isFavorite)
+                }
+            }
+            it
+        }
     }
 
     fun onLoadData() {
@@ -40,11 +48,8 @@ class CharactersViewModel @Inject constructor(
 
         viewModelScope.launch(Dispatchers.IO) {
             isLoading = true
-            val characterTypes = mapper.map(characterGateway.getCharacters(currentPage))
-            if (characterTypes.isNotEmpty()) {
-                _characters.postValue(characterTypes)
-                currentPage++
-            }
+            val characterTypes = mapper.map(characterUseCase.getCharacters())
+            _characters.postValue(characterTypes)
             isLoading = false
         }
     }

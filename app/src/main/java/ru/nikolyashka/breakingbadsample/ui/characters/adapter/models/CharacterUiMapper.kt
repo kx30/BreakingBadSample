@@ -13,7 +13,7 @@ class CharacterUiMapper(private val type: Int) : CharacterMapperToUi<CharacterUi
                 id = character.id,
                 name = character.name,
                 imageUrl = character.imageUrl,
-                isChecked = false
+                isFavorite = false
             )
         } else {
             throw IllegalArgumentException("incorrect type during mapping")

@@ -16,7 +16,7 @@ class CharacterViewHolder(
         val character = type as CharacterUiType.CharacterUiModel
 
         setListener(character)
-        setFavoriteIcon(character.isChecked)
+        setFavoriteIcon(character.isFavorite)
         setName(character.name)
         setImage(character.imageUrl)
     }

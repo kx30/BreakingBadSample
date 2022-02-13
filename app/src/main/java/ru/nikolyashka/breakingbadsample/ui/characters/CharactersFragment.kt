@@ -35,7 +35,7 @@ class CharactersFragment : BaseFragment<FragmentCharactersBinding>(), CharacterL
     }
 
     override fun addToFavorite(character: CharacterUiType.CharacterUiModel) {
-
+        viewModel.onAddToFavorite(character)
     }
 
     override fun loadCharacters() {

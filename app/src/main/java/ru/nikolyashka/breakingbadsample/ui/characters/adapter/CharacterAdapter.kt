@@ -29,7 +29,7 @@ class CharacterAdapter(
     override fun onBindViewHolder(holder: CommonCharacterViewHolder, position: Int, payloads: MutableList<Any>) {
         if (payloads.firstOrNull { it == ON_FAVORITE_STATE_CHANGED } != null) {
             val character = currentList[position] as CharacterUiType.CharacterUiModel
-            (holder as CharacterViewHolder).setFavoriteIcon(character.isChecked)
+            (holder as CharacterViewHolder).setFavoriteIcon(character.isFavorite)
             holder.setListener(character)
         }
 

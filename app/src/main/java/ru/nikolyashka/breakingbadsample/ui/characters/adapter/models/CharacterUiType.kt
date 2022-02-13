@@ -4,7 +4,7 @@ import androidx.annotation.StringRes
 
 sealed class CharacterUiType(val viewType: Int) {
 
-    data class CharacterUiModel(val id: Int, val name: String, val imageUrl: String, val isChecked: Boolean) :
+    data class CharacterUiModel(val id: Int, val name: String, val imageUrl: String, val isFavorite: Boolean) :
         CharacterUiType(CharacterUiViewType.CHARACTER_UI_TYPE)
 
     data class FullScreenError(@StringRes val error: Int) :
