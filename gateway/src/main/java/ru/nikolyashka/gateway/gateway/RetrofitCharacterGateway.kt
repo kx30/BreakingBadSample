@@ -1,6 +1,5 @@
 package ru.nikolyashka.gateway.gateway
 
-import ru.nikolyashka.core.Mapper
 import ru.nikolyashka.domain.CharacterType
 import ru.nikolyashka.gateway.Api
 import ru.nikolyashka.gateway.Constants.DEFAULT_LIMIT
@@ -10,7 +9,6 @@ import javax.inject.Inject
 
 class RetrofitCharacterGateway @Inject constructor(
     private val api: Api,
-    private val mapper: Mapper<List<@JvmSuppressWildcards CharacterType>, List<@JvmSuppressWildcards CharacterResponse>>
 ) : CharacterGateway {
 
     private val characterList = ArrayList<CharacterResponse>()
@@ -24,21 +22,21 @@ class RetrofitCharacterGateway @Inject constructor(
 
     override fun areThereMoreCharacters(): Boolean = currentPage < totalPages
 
-    override fun getInitialCharacters(): List<CharacterType> = mapper.map(characterList)
+    override fun getInitialCharacters(): List<CharacterType> = characterList.map { it.map() }
 
     override suspend fun getCharactersBySearch(searchingText: String): List<CharacterType> {
-        return mapper.map(api.getCharactersBySearch(searchingText))
+        return api.getCharactersBySearch(searchingText).map { it.map() }
     }
 
     override suspend fun getCharacters(): List<CharacterType> {
         if (!areThereMoreCharacters()) {
-            return mapper.map(characterList)
+            return characterList.map { it.map() }
         }
         val characters = api.getCharacters(currentPage * DEFAULT_LIMIT)
         if (characters.isNotEmpty()) {
             characterList.addAll(characters)
             currentPage++
         }
-        return mapper.map(characterList)
+        return characterList.map { it.map() }
     }
 }

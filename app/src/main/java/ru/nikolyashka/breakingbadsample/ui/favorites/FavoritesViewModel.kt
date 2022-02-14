@@ -30,7 +30,7 @@ class FavoritesViewModel @Inject constructor(
             if (it is CharacterUiType.CharacterUiModel) {
                 if (it.id == character.id) {
                     viewModelScope.launch {
-                        favoriteUseCase.changeFavoriteCharacterState(it.map(it)) // Todo: вомзожно пересмотреть это
+                        favoriteUseCase.changeFavoriteCharacterState(it.map()) // Todo: вомзожно пересмотреть это
                     }
                     return@map it.copy(isFavorite = !it.isFavorite)
                 }
