@@ -1,4 +1,4 @@
-package ru.nikolyashka.breakingbadsample.di.mapper
+package ru.nikolyashka.breakingbadsample.di.mappers
 
 import dagger.Binds
 import dagger.Module

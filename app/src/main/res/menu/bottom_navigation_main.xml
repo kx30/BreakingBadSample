@@ -6,7 +6,7 @@
         android:title="@string/characters" />
     <item
         android:id="@+id/search_graph"
-        android:icon="@drawable/ic_search"
+        android:icon="@drawable/placeholder_nothing_found"
         android:title="@string/search"/>
     <item
         android:id="@+id/favorites_graph"

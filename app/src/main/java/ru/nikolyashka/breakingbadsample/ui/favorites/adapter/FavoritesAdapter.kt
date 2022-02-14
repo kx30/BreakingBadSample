@@ -1,23 +1,28 @@
-package ru.nikolyashka.breakingbadsample.ui.characters.adapter
+package ru.nikolyashka.breakingbadsample.ui.favorites.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import ru.nikolyashka.breakingbadsample.databinding.ItemCharacterBinding
-import ru.nikolyashka.breakingbadsample.databinding.ItemCharacterBottomErrorBinding
 import ru.nikolyashka.breakingbadsample.databinding.ItemCharacterFullScreenErrorBinding
 import ru.nikolyashka.breakingbadsample.databinding.ItemCharacterLoaderCenterBinding
+import ru.nikolyashka.breakingbadsample.databinding.ItemEmptyFavoritesBinding
 import ru.nikolyashka.breakingbadsample.ui.base.BaseCharacterAdapter
-import ru.nikolyashka.breakingbadsample.ui.characters.adapter.holders.*
+import ru.nikolyashka.breakingbadsample.ui.characters.adapter.CharacterListener
+import ru.nikolyashka.breakingbadsample.ui.characters.adapter.holders.CharacterCenterLoaderViewHolder
+import ru.nikolyashka.breakingbadsample.ui.characters.adapter.holders.CharacterFullScreenErrorViewHolder
+import ru.nikolyashka.breakingbadsample.ui.characters.adapter.holders.CharacterViewHolder
+import ru.nikolyashka.breakingbadsample.ui.characters.adapter.holders.CommonCharacterViewHolder
 import ru.nikolyashka.breakingbadsample.ui.characters.adapter.models.CharacterUiViewType
+import ru.nikolyashka.breakingbadsample.ui.favorites.holder.FavoritesEmptyViewHolder
 
-class CharacterAdapter(
+class FavoritesAdapter (
     private val listener: CharacterListener
 ) : BaseCharacterAdapter() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CommonCharacterViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
         return when (viewType) {
-            CharacterUiViewType.CHARACTER_UI_TYPE -> CharacterViewHolder( // Todo: Вынести в экстеншн
+            CharacterUiViewType.CHARACTER_UI_TYPE -> CharacterViewHolder(
                 ItemCharacterBinding.inflate(layoutInflater, parent, false), listener
             )
             CharacterUiViewType.CHARACTER_FULL_SCREEN_ERROR -> CharacterFullScreenErrorViewHolder(
@@ -26,8 +31,8 @@ class CharacterAdapter(
             CharacterUiViewType.CHARACTER_CENTER_LOADER -> CharacterCenterLoaderViewHolder(
                 ItemCharacterLoaderCenterBinding.inflate(layoutInflater, parent, false), listener
             )
-            CharacterUiViewType.CHARACTER_BOTTOM_ERROR -> CharacterBottomErrorViewHolder(
-                ItemCharacterBottomErrorBinding.inflate(layoutInflater, parent, false), listener
+            CharacterUiViewType.CHARACTER_EMPTY_DATA -> FavoritesEmptyViewHolder(
+                ItemEmptyFavoritesBinding.inflate(layoutInflater, parent, false)
             )
             else -> throw IllegalStateException()
         }

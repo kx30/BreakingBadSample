@@ -17,6 +17,11 @@ class RoomFavoritesGateway @Inject constructor(
         mapperFromEntityToModel.map(it)
     }
 
+    override suspend fun getFavoritesBySearch(searchingText: String): List<CharacterType.CharacterModel> =
+        characterDao.getBySearch(searchingText).map {
+            mapperFromEntityToModel.map(it)
+        }
+
     override suspend fun addToFavorite(character: CharacterType.CharacterModel) =
         characterDao.insert(mapperFromModelToEntity.map(character))
 

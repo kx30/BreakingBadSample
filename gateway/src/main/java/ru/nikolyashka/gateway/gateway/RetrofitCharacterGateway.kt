@@ -3,7 +3,7 @@ package ru.nikolyashka.gateway.gateway
 import ru.nikolyashka.core.Mapper
 import ru.nikolyashka.domain.CharacterType
 import ru.nikolyashka.gateway.Api
-import ru.nikolyashka.gateway.Api.Companion.DEFAULT_OFFSET
+import ru.nikolyashka.gateway.Constants.DEFAULT_LIMIT
 import ru.nikolyashka.gateway.models.responses.CharacterResponse
 import ru.nikolyashka.gateways.CharacterGateway
 import javax.inject.Inject
@@ -34,7 +34,7 @@ class RetrofitCharacterGateway @Inject constructor(
         if (!areThereMoreCharacters()) {
             return mapper.map(characterList)
         }
-        val characters = api.getCharacters(currentPage * DEFAULT_OFFSET)
+        val characters = api.getCharacters(currentPage * DEFAULT_LIMIT)
         if (characters.isNotEmpty()) {
             characterList.addAll(characters)
             currentPage++

@@ -12,6 +12,9 @@ interface CharacterDao {
     @Query("SELECT * FROM  CharacterEntity")
     suspend fun getAll(): List<CharacterEntity>
 
+    @Query("SELECT * FROM CharacterEntity WHERE name LIKE '%' || :searchingText || '%'")
+    suspend fun getBySearch(searchingText: String): List<CharacterEntity>
+
     @Delete
     suspend fun delete(character: CharacterEntity)
 

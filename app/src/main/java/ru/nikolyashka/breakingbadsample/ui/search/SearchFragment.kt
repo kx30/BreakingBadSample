@@ -9,10 +9,14 @@ import dagger.hilt.android.AndroidEntryPoint
 import ru.nikolyashka.breakingbadsample.databinding.FragmentSearchBinding
 import ru.nikolyashka.breakingbadsample.extensions.hideKeyboard
 import ru.nikolyashka.breakingbadsample.ui.base.BaseCharacterFragment
+import ru.nikolyashka.breakingbadsample.ui.search.adapter.SearchAdapter
 
 @AndroidEntryPoint
 class SearchFragment : BaseCharacterFragment<FragmentSearchBinding>() {
 
+    override val adapter by lazy {
+        SearchAdapter(this)
+    }
     override val viewModel: SearchViewModel by viewModels()
     override val recyclerView: RecyclerView
         get() = binding.rvSearch

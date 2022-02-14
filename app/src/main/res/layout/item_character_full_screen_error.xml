@@ -9,7 +9,7 @@
         android:id="@+id/tvCharacterDetailsErrorPlaceholder"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:drawableTop="@drawable/ic_no_internet_connection"
+        android:drawableTop="@drawable/placeholder_no_internet_connection"
         android:drawablePadding="20dp"
         android:drawableTint="@color/black"
         android:textColor="@android:color/black"

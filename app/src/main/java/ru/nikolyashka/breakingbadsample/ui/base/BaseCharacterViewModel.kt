@@ -13,12 +13,21 @@ abstract class BaseCharacterViewModel(
     private val mapper: Mapper<List<CharacterUiType>, List<CharacterType>>,
 ) : BaseViewModel() {
 
-    protected val _characters = MutableLiveData<List<CharacterUiType>>()
     private var isLoading = false
+    private var lastVisibleItemPosition = -1
+    protected val _characters = MutableLiveData<List<CharacterUiType>>()
     val characters: LiveData<List<CharacterUiType>> = _characters
+
 
     protected abstract suspend fun getCharacters(): List<CharacterType>
     abstract fun onAddToFavorite(character: CharacterUiType.CharacterUiModel)
+
+    fun onLoadMoreData(lastVisibleItemPosition: Int) {
+        if (lastVisibleItemPosition != this.lastVisibleItemPosition) {
+            onLoadData()
+            this.lastVisibleItemPosition = lastVisibleItemPosition
+        }
+    }
 
     fun onLoadData() {
         if (isLoading) {

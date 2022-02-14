@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvFavoritesPlaceholder"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:drawableTop="@drawable/placeholder_no_favorites"
+        android:drawablePadding="20dp"
+        android:drawableTint="@android:color/holo_red_dark"
+        android:text="@string/you_do_not_have_any_favorites_yet"
+        android:textColor="@android:color/black" />
+
+</FrameLayout>

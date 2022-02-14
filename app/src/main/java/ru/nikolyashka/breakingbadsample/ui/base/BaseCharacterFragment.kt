@@ -5,19 +5,17 @@ import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewbinding.ViewBinding
-import ru.nikolyashka.breakingbadsample.ui.characters.adapter.CharacterAdapter
 import ru.nikolyashka.breakingbadsample.ui.characters.adapter.CharacterListener
 import ru.nikolyashka.breakingbadsample.ui.characters.adapter.PaginationScrollListener
 import ru.nikolyashka.breakingbadsample.ui.characters.adapter.models.CharacterUiType
+import ru.nikolyashka.gateway.Constants.DEFAULT_LIMIT
 
 abstract class BaseCharacterFragment<VB : ViewBinding> : BaseFragment<VB>(), CharacterListener {
 
     abstract override val viewModel: BaseCharacterViewModel
     protected abstract val recyclerView: RecyclerView
 
-    protected val adapter: CharacterAdapter by lazy {
-        CharacterAdapter(this)
-    }
+    protected abstract val adapter: BaseCharacterAdapter
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -41,9 +39,14 @@ abstract class BaseCharacterFragment<VB : ViewBinding> : BaseFragment<VB>(), Cha
     }
 
     private fun setUpAdapter() {
-        recyclerView.layoutManager = LinearLayoutManager(requireContext())
+        val linearLayout = LinearLayoutManager(requireContext())
+        recyclerView.layoutManager = linearLayout
         recyclerView.adapter = adapter
         recyclerView.setHasFixedSize(true)
-        recyclerView.addOnScrollListener(PaginationScrollListener(10, viewModel::onLoadData))
+        recyclerView.addOnScrollListener(
+            PaginationScrollListener(DEFAULT_LIMIT) {
+                viewModel.onLoadMoreData(linearLayout.findLastVisibleItemPosition())
+            }
+        )
     }
 }

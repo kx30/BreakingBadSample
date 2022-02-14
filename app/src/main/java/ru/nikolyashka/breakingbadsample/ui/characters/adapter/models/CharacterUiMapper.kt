@@ -1,23 +1,20 @@
 package ru.nikolyashka.breakingbadsample.ui.characters.adapter.models
 
 import ru.nikolyashka.breakingbadsample.R
+import ru.nikolyashka.breakingbadsample.ui.characters.adapter.models.CharacterUiViewType.CHARACTER_FULL_SCREEN_ERROR
 import ru.nikolyashka.core.ErrorType
 import ru.nikolyashka.domain.CharacterMapperToUi
 import ru.nikolyashka.domain.CharacterType
 
-class CharacterUiMapper(private val type: Int) : CharacterMapperToUi<CharacterUiType> {
+class CharacterUiMapper(private val viewType: Int) : CharacterMapperToUi<CharacterUiType> {
 
     override fun map(character: CharacterType.CharacterModel): CharacterUiType {
-        if (type == CharacterUiViewType.CHARACTER_UI_TYPE) {
-            return CharacterUiType.CharacterUiModel(
-                id = character.id,
-                name = character.name,
-                imageUrl = character.imageUrl,
-                isFavorite = character.isFavorite
-            )
-        } else {
-            throw IllegalArgumentException("incorrect type during mapping")
-        }
+        return CharacterUiType.CharacterUiModel(
+            id = character.id,
+            name = character.name,
+            imageUrl = character.imageUrl,
+            isFavorite = character.isFavorite
+        )
     }
 
     override fun map(characterError: CharacterType.CharacterErrorModel): CharacterUiType {
@@ -26,10 +23,12 @@ class CharacterUiMapper(private val type: Int) : CharacterMapperToUi<CharacterUi
             ErrorType.NetworkUnavailable -> R.string.network_unavailable
         }
 
-        // Todo: скорее всего нужно переделать на enum
-        return when (type) {
-            CharacterUiViewType.CHARACTER_FULL_SCREEN_ERROR -> CharacterUiType.FullScreenError(errorMessage)
-            else -> CharacterUiType.SnackBarError(errorMessage)
+        return when (viewType) {
+            CHARACTER_FULL_SCREEN_ERROR -> CharacterUiType.CharacterUiFullScreenError(errorMessage)
+            else -> CharacterUiType.CharacterUiBottomError(errorMessage)
         }
     }
+
+    override fun map(emptyData: CharacterType.CharacterEmptyData): CharacterUiType =
+        CharacterUiType.CharacterUiEmptyData
 }

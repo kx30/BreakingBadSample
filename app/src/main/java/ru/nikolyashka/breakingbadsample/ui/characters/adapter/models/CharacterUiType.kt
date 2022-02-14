@@ -6,25 +6,22 @@ import ru.nikolyashka.domain.CharacterType
 sealed class CharacterUiType(val viewType: Int) {
 
     data class CharacterUiModel(val id: Int, val name: String, val imageUrl: String, val isFavorite: Boolean) :
-        CharacterUiType(CharacterUiViewType.CHARACTER_UI_TYPE), CharacterMapperFromUi<CharacterType.CharacterModel> {
-        override fun map(character: CharacterUiModel): CharacterType.CharacterModel = CharacterType.CharacterModel(
-            id = character.id,
-            name = character.name,
-            imageUrl = character.imageUrl,
-            isFavorite = character.isFavorite
+        CharacterUiType(CharacterUiViewType.CHARACTER_UI_TYPE) {
+
+        fun map(): CharacterType.CharacterModel = CharacterType.CharacterModel(
+            id = this.id,
+            name = this.name,
+            imageUrl = this.imageUrl,
+            isFavorite = this.isFavorite
         )
     }
 
-    data class FullScreenError(@StringRes val error: Int) :
+    data class CharacterUiFullScreenError(@StringRes val error: Int) :
         CharacterUiType(CharacterUiViewType.CHARACTER_FULL_SCREEN_ERROR)
 
-    data class SnackBarError(@StringRes val error: Int) :
-        CharacterUiType(CharacterUiViewType.CHARACTER_SNACKBAR_ERROR)
+    data class CharacterUiBottomError(@StringRes val error: Int) :
+        CharacterUiType(CharacterUiViewType.CHARACTER_BOTTOM_ERROR)
 
     object CharacterUiCenterLoader : CharacterUiType(CharacterUiViewType.CHARACTER_CENTER_LOADER)
-}
-
-interface CharacterMapperFromUi<T> {
-
-    fun map(character: CharacterUiType.CharacterUiModel): T
+    object CharacterUiEmptyData : CharacterUiType(CharacterUiViewType.CHARACTER_EMPTY_DATA)
 }

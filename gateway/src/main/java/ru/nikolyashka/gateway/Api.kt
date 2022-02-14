@@ -3,6 +3,7 @@ package ru.nikolyashka.gateway
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
+import ru.nikolyashka.gateway.Constants.DEFAULT_LIMIT
 import ru.nikolyashka.gateway.models.responses.CharacterDetailsResponse
 import ru.nikolyashka.gateway.models.responses.CharacterResponse
 
@@ -26,9 +27,4 @@ interface Api {
     suspend fun getCharacterById(
         @Path("id") id: Int
     ): List<CharacterDetailsResponse>
-
-    companion object {
-        const val DEFAULT_OFFSET = 10
-        private const val DEFAULT_LIMIT = 10
-    }
 }

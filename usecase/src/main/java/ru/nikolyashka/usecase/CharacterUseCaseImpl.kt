@@ -17,18 +17,6 @@ class CharacterUseCaseImpl @Inject constructor(
 
     override fun areThereMoreCharacters(): Boolean = characterGateway.areThereMoreCharacters()
 
-    override suspend fun getCharactersBySearch(searchingText: String) = coroutineScope {
-        val characters = withContext(Dispatchers.IO) { characterGateway.getCharactersBySearch(searchingText) }
-        val favoriteCharacters = withContext(Dispatchers.IO) { favoriteGateway.getFavorites() }
-
-        characters.map { characterType ->
-            if (characterType is CharacterType.CharacterModel) {
-                characterType.isFavorite = favoriteCharacters.firstOrNull { it.id == characterType.id } != null
-            }
-            characterType
-        }
-    }
-
     override suspend fun getInitialCharacters(): List<CharacterType> = coroutineScope {
         val characters = withContext(Dispatchers.IO) { characterGateway.getInitialCharacters() }
         val favoriteCharacters = withContext(Dispatchers.IO) { favoriteGateway.getFavorites() }

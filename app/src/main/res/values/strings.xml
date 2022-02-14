@@ -7,7 +7,10 @@
 
     <string name="try_again">Try again</string>
 
-    <string name="network_unavailable">Network unavailable. Try again</string>
+    <string name="network_unavailable">Network is unavailable. Try again</string>
     <string name="something_went_wrong">Something went wrong. Try again</string>
     <string name="search">Search</string>
+    <string name="you_do_not_have_any_favorites_yet">You do not have any favorites yet</string>
+    <string name="no_results_were_found_for_your_search">No results were found for your search</string>
+    <string name="error_during_loading_data">Error during loading data. Try again</string>
 </resources>

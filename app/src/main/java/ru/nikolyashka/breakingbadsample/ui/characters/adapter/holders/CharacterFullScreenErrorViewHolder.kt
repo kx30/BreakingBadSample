@@ -11,7 +11,7 @@ class CharacterFullScreenErrorViewHolder(
 ) : CommonCharacterViewHolder(binding) {
 
     override fun onBind(type: CharacterUiType) {
-        val fullScreenError = type as CharacterUiType.FullScreenError
+        val fullScreenError = type as CharacterUiType.CharacterUiFullScreenError
 
         setErrorMessage(fullScreenError.error)
         setListener()

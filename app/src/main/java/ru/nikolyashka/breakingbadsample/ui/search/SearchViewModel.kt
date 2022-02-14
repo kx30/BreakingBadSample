@@ -8,12 +8,13 @@ import ru.nikolyashka.breakingbadsample.ui.base.BaseCharacterViewModel
 import ru.nikolyashka.breakingbadsample.ui.characters.adapter.models.CharacterUiType
 import ru.nikolyashka.core.Mapper
 import ru.nikolyashka.domain.CharacterType
-import ru.nikolyashka.gateways.CharacterGateway
+import ru.nikolyashka.usecase.CharacterUseCase
+import ru.nikolyashka.usecase.SearchUseCase
 import javax.inject.Inject
 
 @HiltViewModel
 class SearchViewModel @Inject constructor(
-    private val characterGateway: CharacterGateway,
+    private val searchUseCase: SearchUseCase,
     private val mapper: Mapper<List<CharacterUiType>, List<CharacterType>>,
 ) : BaseCharacterViewModel(mapper) {
 
@@ -26,8 +27,11 @@ class SearchViewModel @Inject constructor(
     }
 
     fun onSearch(searchingText: String) {
+        if (searchingText.length < 2) {
+            return
+        }
         viewModelScope.launch(Dispatchers.IO) {
-            _characters.postValue(mapper.map(characterGateway.getCharactersBySearch(searchingText)))
+            _characters.postValue(mapper.map(searchUseCase.getCharactersBySearch(searchingText)))
         }
     }
 }
