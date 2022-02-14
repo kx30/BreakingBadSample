@@ -8,8 +8,10 @@ import kotlinx.coroutines.launch
 import ru.nikolyashka.breakingbadsample.ui.characters.adapter.models.CharacterUiType
 import ru.nikolyashka.core.Mapper
 import ru.nikolyashka.domain.CharacterType
+import ru.nikolyashka.usecase.FavoritesUseCase
 
 abstract class BaseCharacterViewModel(
+    private val favoritesUseCase: FavoritesUseCase,
     private val mapper: Mapper<List<CharacterUiType>, List<CharacterType>>,
 ) : BaseViewModel() {
 
@@ -19,8 +21,21 @@ abstract class BaseCharacterViewModel(
     val characters: LiveData<List<CharacterUiType>> = _characters
 
 
-    protected abstract suspend fun getCharacters(): List<CharacterType>
-    abstract fun onAddToFavorite(character: CharacterUiType.CharacterUiModel)
+    protected open suspend fun getCharacters(): List<CharacterType> = arrayListOf()
+
+    fun onAddToFavorite(character: CharacterUiType.CharacterUiModel) {
+        _characters.value = _characters.value?.map {
+            if (it is CharacterUiType.CharacterUiModel) {
+                if (it.id == character.id) {
+                    viewModelScope.launch(Dispatchers.IO) {
+                        favoritesUseCase.changeFavoriteCharacterState(it.map())
+                    }
+                    return@map it.copy(isFavorite = !it.isFavorite)
+                }
+            }
+            it
+        }
+    }
 
     fun onLoadMoreData(lastVisibleItemPosition: Int) {
         if (lastVisibleItemPosition != this.lastVisibleItemPosition) {
@@ -36,8 +51,7 @@ abstract class BaseCharacterViewModel(
 
         viewModelScope.launch(Dispatchers.IO) {
             isLoading = true
-            val data = getCharacters()
-            _characters.postValue(mapper.map(data))
+            _characters.postValue(mapper.map(getCharacters()))
             isLoading = false
         }
     }

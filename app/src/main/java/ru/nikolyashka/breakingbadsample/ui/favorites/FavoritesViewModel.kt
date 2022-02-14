@@ -13,9 +13,9 @@ import javax.inject.Inject
 
 @HiltViewModel
 class FavoritesViewModel @Inject constructor(
-    private val favoriteUseCase: FavoritesUseCase,
+    private val favoritesUseCase: FavoritesUseCase,
     private val mapper: Mapper<List<CharacterUiType>, List<CharacterType>>
-) : BaseCharacterViewModel(mapper) {
+) : BaseCharacterViewModel(favoritesUseCase, mapper) {
 
     override fun onResume() {
         viewModelScope.launch(Dispatchers.IO) {
@@ -23,19 +23,5 @@ class FavoritesViewModel @Inject constructor(
         }
     }
 
-    override suspend fun getCharacters(): List<CharacterType> = favoriteUseCase.getFavoriteCharacters()
-
-    override fun onAddToFavorite(character: CharacterUiType.CharacterUiModel) {
-        _characters.value = _characters.value?.map {
-            if (it is CharacterUiType.CharacterUiModel) {
-                if (it.id == character.id) {
-                    viewModelScope.launch {
-                        favoriteUseCase.changeFavoriteCharacterState(it.map()) // Todo: вомзожно пересмотреть это
-                    }
-                    return@map it.copy(isFavorite = !it.isFavorite)
-                }
-            }
-            it
-        }
-    }
+    override suspend fun getCharacters(): List<CharacterType> = favoritesUseCase.getFavoriteCharacters()
 }

@@ -25,7 +25,7 @@ class CharacterViewHolder(
         binding.flItemCharacterFavorite.setOnClickListener {
             listener.addToFavorite(character)
         }
-        binding.root.setOnClickListener {
+        binding.clCharacterContainer.setOnClickListener {
             listener.openCharacterDetails(character.id)
         }
     }

@@ -3,7 +3,6 @@ package ru.nikolyashka.domain
 import ru.nikolyashka.core.ErrorType
 
 sealed class CharacterDetailsType {
-
     abstract fun <T> map(mapper: CharacterDetailsMapper<T>): T
 
     data class CharacterDetailsModel(
@@ -22,7 +21,6 @@ sealed class CharacterDetailsType {
 }
 
 interface CharacterDetailsMapper<T> {
-
     fun map(characterDetails: CharacterDetailsType.CharacterDetailsModel): T
     fun map(characterDetails: CharacterDetailsType.CharacterDetailsErrorModel): T
 }

@@ -8,6 +8,10 @@
     app:cardCornerRadius="8dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clCharacterContainer"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="@drawable/bg_rectangle_layout_with_ripple"
         android:layout_width="match_parent"
         android:layout_height="280dp"
         android:padding="8dp">
@@ -37,7 +41,7 @@
             android:layout_height="48dp"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
-            android:background="@drawable/circle_layout_background"
+            android:background="@drawable/bg_circle_layout_with_ripple"
             android:elevation="4dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent">
@@ -48,7 +52,7 @@
                 android:layout_height="30dp"
                 android:layout_gravity="center"
                 android:src="@drawable/ic_favorite_unfilled"
-                android:tint="#ff0000" />
+                android:tint="@color/red" />
 
         </FrameLayout>
 

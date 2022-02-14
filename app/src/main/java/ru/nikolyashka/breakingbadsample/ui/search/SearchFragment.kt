@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.KeyEvent
 import android.view.View
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import dagger.hilt.android.AndroidEntryPoint
 import ru.nikolyashka.breakingbadsample.databinding.FragmentSearchBinding
@@ -30,7 +31,8 @@ class SearchFragment : BaseCharacterFragment<FragmentSearchBinding>() {
     }
 
     override fun openCharacterDetails(characterId: Int) {
-
+        SearchFragmentDirections.openCharacterDetailsFragment(characterId)
+            .let(findNavController()::navigate)
     }
 
     private fun setUpListeners() {

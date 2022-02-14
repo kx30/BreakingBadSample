@@ -14,7 +14,7 @@ class RetrofitCharacterDetailsGateway @Inject constructor(
     override suspend fun getCharacterById(id: Int): CharacterDetailsType = kotlin.runCatching {
         api.getCharacterById(id)
     }.fold(
-        onSuccess = { it[0].map(it[0]) },
+        onSuccess = { it[0].map() },
         onFailure = { CharacterDetailsType.CharacterDetailsErrorModel(exceptionHandler.defineErrorType(it)) }
     )
 }

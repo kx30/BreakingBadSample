@@ -17,7 +17,7 @@ class CharacterAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CommonCharacterViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
         return when (viewType) {
-            CharacterUiViewType.CHARACTER_UI_TYPE -> CharacterViewHolder( // Todo: Вынести в экстеншн
+            CharacterUiViewType.CHARACTER_UI_TYPE -> CharacterViewHolder(
                 ItemCharacterBinding.inflate(layoutInflater, parent, false), listener
             )
             CharacterUiViewType.CHARACTER_FULL_SCREEN_ERROR -> CharacterFullScreenErrorViewHolder(

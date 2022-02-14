@@ -10,18 +10,13 @@ data class CharacterDetailsResponse(
     @SerializedName("img")
     val imageUrl: String,
     val birthday: String
-) : MapperResponseToModel {
-    override fun map(characterDetailsResponse: CharacterDetailsResponse): CharacterDetailsType.CharacterDetailsModel =
+) {
+    fun map(): CharacterDetailsType.CharacterDetailsModel =
         CharacterDetailsType.CharacterDetailsModel(
-            id = characterDetailsResponse.id,
-            name = characterDetailsResponse.name,
-            nickname = characterDetailsResponse.nickname,
-            imageUrl = characterDetailsResponse.imageUrl,
-            birthday = characterDetailsResponse.birthday
+            id = this.id,
+            name = this.name,
+            nickname = this.nickname,
+            imageUrl = this.imageUrl,
+            birthday = this.birthday
         )
-}
-
-interface MapperResponseToModel {
-
-    fun map(characterDetailsResponse: CharacterDetailsResponse): CharacterDetailsType.CharacterDetailsModel
 }
