@@ -14,6 +14,10 @@ interface Api {
         @Query("limit") limit: Int = DEFAULT_LIMIT
     ): List<CharacterResponse>
 
+    @GET("/api/characters")
+    suspend fun getCharactersBySearch(
+        @Query("name") name: String
+    ): List<CharacterResponse>
 
     /**
      * Api send array when get by id, lol

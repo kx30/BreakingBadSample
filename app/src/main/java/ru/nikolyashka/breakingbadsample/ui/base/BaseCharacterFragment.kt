@@ -2,24 +2,23 @@ package ru.nikolyashka.breakingbadsample.ui.base
 
 import android.os.Bundle
 import android.view.View
-import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
-import ru.nikolyashka.breakingbadsample.databinding.FragmentCharactersBinding
+import androidx.recyclerview.widget.RecyclerView
+import androidx.viewbinding.ViewBinding
 import ru.nikolyashka.breakingbadsample.ui.characters.adapter.CharacterAdapter
 import ru.nikolyashka.breakingbadsample.ui.characters.adapter.CharacterListener
 import ru.nikolyashka.breakingbadsample.ui.characters.adapter.PaginationScrollListener
 import ru.nikolyashka.breakingbadsample.ui.characters.adapter.models.CharacterUiType
 
-abstract class BaseCharacterFragment : BaseFragment<FragmentCharactersBinding>(), CharacterListener {
+abstract class BaseCharacterFragment<VB : ViewBinding> : BaseFragment<VB>(), CharacterListener {
 
     abstract override val viewModel: BaseCharacterViewModel
+    protected abstract val recyclerView: RecyclerView
 
     protected val adapter: CharacterAdapter by lazy {
         CharacterAdapter(this)
     }
 
-
-    override fun getViewBinding(): FragmentCharactersBinding = FragmentCharactersBinding.inflate(layoutInflater)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -42,11 +41,9 @@ abstract class BaseCharacterFragment : BaseFragment<FragmentCharactersBinding>()
     }
 
     private fun setUpAdapter() {
-        with(binding) {
-            rvCharacter.layoutManager = LinearLayoutManager(requireContext())
-            rvCharacter.adapter = adapter
-            rvCharacter.setHasFixedSize(true)
-            rvCharacter.addOnScrollListener(PaginationScrollListener(10, viewModel::onLoadData))
-        }
+        recyclerView.layoutManager = LinearLayoutManager(requireContext())
+        recyclerView.adapter = adapter
+        recyclerView.setHasFixedSize(true)
+        recyclerView.addOnScrollListener(PaginationScrollListener(10, viewModel::onLoadData))
     }
 }

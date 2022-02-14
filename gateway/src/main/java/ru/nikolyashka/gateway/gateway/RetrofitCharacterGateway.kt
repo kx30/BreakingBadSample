@@ -26,6 +26,10 @@ class RetrofitCharacterGateway @Inject constructor(
 
     override fun getInitialCharacters(): List<CharacterType> = mapper.map(characterList)
 
+    override suspend fun getCharactersBySearch(searchingText: String): List<CharacterType> {
+        return mapper.map(api.getCharactersBySearch(searchingText))
+    }
+
     override suspend fun getCharacters(): List<CharacterType> {
         if (!areThereMoreCharacters()) {
             return mapper.map(characterList)

@@ -8,4 +8,5 @@ interface CharacterGateway {
     fun areThereMoreCharacters(): Boolean
     fun getInitialCharacters(): List<CharacterType>
     suspend fun getCharacters(): List<CharacterType>
+    suspend fun getCharactersBySearch(searchingText: String): List<CharacterType>
 }

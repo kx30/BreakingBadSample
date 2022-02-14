@@ -5,6 +5,10 @@
         android:icon="@drawable/ic_heizenberg"
         android:title="@string/characters" />
     <item
+        android:id="@+id/search_graph"
+        android:icon="@drawable/ic_search"
+        android:title="@string/search"/>
+    <item
         android:id="@+id/favorites_graph"
         android:icon="@drawable/ic_favorite_filled"
         android:title="@string/favorites" />
