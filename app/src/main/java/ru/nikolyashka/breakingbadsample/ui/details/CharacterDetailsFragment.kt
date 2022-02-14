@@ -30,11 +30,11 @@ class CharacterDetailsFragment : BaseFragment<FragmentCharacterDetailsBinding>()
             viewModel.loadCharacterDetails(args.characterId)
         }
 
-        setListeners()
-        observeData()
+        setUpListeners()
+        setUpObservers()
     }
 
-    private fun observeData() {
+    private fun setUpObservers() {
         viewModel.isLoading.observe(this, { isLoading ->
             binding.pbCharacterDetails.isVisible = isLoading
         })
@@ -60,7 +60,7 @@ class CharacterDetailsFragment : BaseFragment<FragmentCharacterDetailsBinding>()
         })
     }
 
-    private fun setListeners() {
+    private fun setUpListeners() {
         with(binding) {
             btnCharacterDetailsTryAgain.setOnClickListener {
                 viewModel.loadCharacterDetails(args.characterId)

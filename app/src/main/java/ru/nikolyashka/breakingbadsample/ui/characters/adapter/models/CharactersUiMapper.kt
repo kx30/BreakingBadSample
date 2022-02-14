@@ -25,7 +25,6 @@ class CharactersUiMapper @Inject constructor() :
                         it.map(characterMapper)
                     }
                 )
-                result.add(CharacterUiType.CharacterUiBottomLoader)
             }
         }
         return result

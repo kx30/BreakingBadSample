@@ -15,8 +15,10 @@ class CharacterUseCaseImpl @Inject constructor(
     private val errorHandler: ErrorHandler
 ) : CharacterUseCase {
 
-    override suspend fun getInitialData(): List<CharacterType> = coroutineScope {
-        val characters = withContext(Dispatchers.IO) { characterGateway.getInitialData() }
+    override fun areThereMoreCharacters(): Boolean = characterGateway.areThereMoreCharacters()
+
+    override suspend fun getInitialCharacters(): List<CharacterType> = coroutineScope {
+        val characters = withContext(Dispatchers.IO) { characterGateway.getInitialCharacters() }
         val favoriteCharacters = withContext(Dispatchers.IO) { favoriteGateway.getFavorites() }
 
         characters.map { characterType ->
@@ -42,7 +44,7 @@ class CharacterUseCaseImpl @Inject constructor(
             it
         }, onFailure = {
             ArrayList<CharacterType>().apply {
-                addAll(getInitialData())
+                addAll(getInitialCharacters())
                 add(CharacterType.CharacterErrorModel(errorHandler.defineErrorType(it)))
             }
         })

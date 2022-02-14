@@ -2,7 +2,7 @@ package ru.nikolyashka.breakingbadsample.ui.base
 
 import android.os.Bundle
 import android.view.View
-import androidx.navigation.fragment.findNavController
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import ru.nikolyashka.breakingbadsample.databinding.FragmentCharactersBinding
 import ru.nikolyashka.breakingbadsample.ui.characters.adapter.CharacterAdapter
@@ -45,6 +45,7 @@ abstract class BaseCharacterFragment : BaseFragment<FragmentCharactersBinding>()
         with(binding) {
             rvCharacter.layoutManager = LinearLayoutManager(requireContext())
             rvCharacter.adapter = adapter
+            rvCharacter.setHasFixedSize(true)
             rvCharacter.addOnScrollListener(PaginationScrollListener(10, viewModel::onLoadData))
         }
     }

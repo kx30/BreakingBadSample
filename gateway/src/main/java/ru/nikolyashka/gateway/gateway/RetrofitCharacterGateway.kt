@@ -1,7 +1,6 @@
 package ru.nikolyashka.gateway.gateway
 
 import ru.nikolyashka.core.Mapper
-import ru.nikolyashka.domain.CharacterDetailsType
 import ru.nikolyashka.domain.CharacterType
 import ru.nikolyashka.gateway.Api
 import ru.nikolyashka.gateway.Api.Companion.DEFAULT_OFFSET
@@ -23,10 +22,12 @@ class RetrofitCharacterGateway @Inject constructor(
     private var currentPage = 0
 
 
-    override fun getInitialData(): List<CharacterType> = mapper.map(characterList)
+    override fun areThereMoreCharacters(): Boolean = currentPage < totalPages
+
+    override fun getInitialCharacters(): List<CharacterType> = mapper.map(characterList)
 
     override suspend fun getCharacters(): List<CharacterType> {
-        if (currentPage >= totalPages) {
+        if (!areThereMoreCharacters()) {
             return mapper.map(characterList)
         }
         val characters = api.getCharacters(currentPage * DEFAULT_OFFSET)

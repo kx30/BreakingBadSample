@@ -5,6 +5,7 @@ import ru.nikolyashka.domain.CharacterType
 
 interface CharacterGateway {
 
-    fun getInitialData(): List<CharacterType>
+    fun areThereMoreCharacters(): Boolean
+    fun getInitialCharacters(): List<CharacterType>
     suspend fun getCharacters(): List<CharacterType>
 }

@@ -5,7 +5,6 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import ru.nikolyashka.breakingbadsample.databinding.ItemCharacterBinding
 import ru.nikolyashka.breakingbadsample.databinding.ItemCharacterFullScreenErrorBinding
-import ru.nikolyashka.breakingbadsample.databinding.ItemCharacterLoaderBottomBinding
 import ru.nikolyashka.breakingbadsample.databinding.ItemCharacterLoaderCenterBinding
 import ru.nikolyashka.breakingbadsample.ui.characters.adapter.CharacterDiffUtilsCallback.Companion.ON_FAVORITE_STATE_CHANGED
 import ru.nikolyashka.breakingbadsample.ui.characters.adapter.holders.*
@@ -45,9 +44,6 @@ class CharacterAdapter(
             )
             CharacterUiViewType.CHARACTER_CENTER_LOADER -> CharacterCenterLoaderViewHolder(
                 ItemCharacterLoaderCenterBinding.inflate(layoutInflater, parent, false), listener
-            )
-            CharacterUiViewType.CHARACTER_BOTTOM_LOADER -> CharacterBottomLoaderViewHolder(
-                ItemCharacterLoaderBottomBinding.inflate(layoutInflater, parent, false)
             )
             else -> throw IllegalStateException()
         }

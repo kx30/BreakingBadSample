@@ -19,11 +19,11 @@ class CharactersViewModel @Inject constructor(
     private val mapper: Mapper<List<CharacterUiType>, List<CharacterType>>,
 ) : BaseCharacterViewModel(mapper) {
 
-    override suspend fun getData(): List<CharacterType> = characterUseCase.getCharacters()
+    override suspend fun getCharacters(): List<CharacterType> = characterUseCase.getCharacters()
 
     override fun onResume() {
         viewModelScope.launch(Dispatchers.IO) {
-            _characters.postValue(mapper.map(characterUseCase.getInitialData()))
+            _characters.postValue(mapper.map(characterUseCase.getInitialCharacters()))
         }
     }
 

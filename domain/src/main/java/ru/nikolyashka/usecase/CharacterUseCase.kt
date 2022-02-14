@@ -4,7 +4,7 @@ import ru.nikolyashka.domain.CharacterType
 
 interface CharacterUseCase {
 
-    suspend fun getInitialData(): List<CharacterType>
-
+    fun areThereMoreCharacters(): Boolean
+    suspend fun getInitialCharacters(): List<CharacterType>
     suspend fun getCharacters(): List<CharacterType>
 }

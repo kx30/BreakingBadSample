@@ -2,7 +2,6 @@ package ru.nikolyashka.breakingbadsample.ui.base
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -18,7 +17,7 @@ abstract class BaseCharacterViewModel(
     private var isLoading = false
     val characters: LiveData<List<CharacterUiType>> = _characters
 
-    protected abstract suspend fun getData(): List<CharacterType>
+    protected abstract suspend fun getCharacters(): List<CharacterType>
     abstract fun onAddToFavorite(character: CharacterUiType.CharacterUiModel)
 
     fun onLoadData() {
@@ -28,7 +27,7 @@ abstract class BaseCharacterViewModel(
 
         viewModelScope.launch(Dispatchers.IO) {
             isLoading = true
-            val data = getData()
+            val data = getCharacters()
             _characters.postValue(mapper.map(data))
             isLoading = false
         }

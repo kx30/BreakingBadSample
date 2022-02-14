@@ -21,7 +21,6 @@ sealed class CharacterUiType(val viewType: Int) {
     data class SnackBarError(@StringRes val error: Int) :
         CharacterUiType(CharacterUiViewType.CHARACTER_SNACKBAR_ERROR)
 
-    object CharacterUiBottomLoader : CharacterUiType(CharacterUiViewType.CHARACTER_BOTTOM_LOADER)
     object CharacterUiCenterLoader : CharacterUiType(CharacterUiViewType.CHARACTER_CENTER_LOADER)
 }
 
