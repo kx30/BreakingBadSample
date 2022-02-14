@@ -17,6 +17,8 @@ class CharactersUiMapper @Inject constructor() :
         val result = ArrayList<CharacterUiType>()
         when {
             source.isEmpty() -> result.add(CharacterUiType.CharacterUiCenterLoader)
+            source.size == 1 && source[0] is CharacterType.CharacterErrorModel ->
+                result.add(source[0].map(fullScreenErrorMapper))
             source.last() is CharacterType.CharacterModel -> {
                 result.addAll(
                     source.map {

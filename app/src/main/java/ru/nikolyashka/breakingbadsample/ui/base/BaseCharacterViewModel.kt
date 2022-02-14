@@ -12,7 +12,7 @@ import ru.nikolyashka.domain.CharacterType
 
 abstract class BaseCharacterViewModel(
     private val mapper: Mapper<List<CharacterUiType>, List<CharacterType>>,
-) : ViewModel() {
+) : BaseViewModel() {
 
     protected val _characters = MutableLiveData<List<CharacterUiType>>()
     private var isLoading = false

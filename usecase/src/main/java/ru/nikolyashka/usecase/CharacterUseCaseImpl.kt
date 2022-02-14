@@ -1,14 +1,49 @@
 package ru.nikolyashka.usecase
 
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.withContext
+import ru.nikolyashka.core.ErrorHandler
 import ru.nikolyashka.domain.CharacterType
 import ru.nikolyashka.gateways.CharacterGateway
+import ru.nikolyashka.gateways.FavoritesGateway
 import javax.inject.Inject
 
 class CharacterUseCaseImpl @Inject constructor(
     private val characterGateway: CharacterGateway,
+    private val favoriteGateway: FavoritesGateway,
+    private val errorHandler: ErrorHandler
 ) : CharacterUseCase {
 
-    override fun getInitialData(): List<CharacterType> = characterGateway.getInitialData()
+    override suspend fun getInitialData(): List<CharacterType> = coroutineScope {
+        val characters = withContext(Dispatchers.IO) { characterGateway.getInitialData() }
+        val favoriteCharacters = withContext(Dispatchers.IO) { favoriteGateway.getFavorites() }
 
-    override suspend fun getCharacters(): List<CharacterType> = characterGateway.getCharacters()
+        characters.map { characterType ->
+            if (characterType is CharacterType.CharacterModel) {
+                characterType.isFavorite = favoriteCharacters.firstOrNull { it.id == characterType.id } != null
+            }
+            characterType
+        }
+    }
+
+    override suspend fun getCharacters(): List<CharacterType> = kotlin.runCatching {
+        val characters = withContext(Dispatchers.IO) { characterGateway.getCharacters() }
+        val favoriteCharacters = withContext(Dispatchers.IO) { favoriteGateway.getFavorites() }
+
+        characters.map { characterType ->
+            if (characterType is CharacterType.CharacterModel) {
+                characterType.isFavorite = favoriteCharacters.firstOrNull { it.id == characterType.id } != null
+            }
+            characterType
+        }
+    }
+        .fold(onSuccess = {
+            it
+        }, onFailure = {
+            ArrayList<CharacterType>().apply {
+                addAll(getInitialData())
+                add(CharacterType.CharacterErrorModel(errorHandler.defineErrorType(it)))
+            }
+        })
 }

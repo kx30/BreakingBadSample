@@ -9,14 +9,14 @@ class CharacterDiffUtilsCallback : DiffUtil.ItemCallback<CharacterUiType>() {
         if (oldItem is CharacterUiType.CharacterUiModel && newItem is CharacterUiType.CharacterUiModel) {
             return oldItem.id == newItem.id
         }
-        return true
+        return false
     }
 
     override fun areContentsTheSame(oldItem: CharacterUiType, newItem: CharacterUiType): Boolean {
         if (oldItem is CharacterUiType.CharacterUiModel && newItem is CharacterUiType.CharacterUiModel) {
             return oldItem.isFavorite == newItem.isFavorite
         }
-        return true
+        return false
     }
 
     override fun getChangePayload(oldItem: CharacterUiType, newItem: CharacterUiType): Any? {

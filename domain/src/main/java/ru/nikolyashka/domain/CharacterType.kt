@@ -9,7 +9,7 @@ sealed class CharacterType {
         val id: Int,
         val name: String,
         val imageUrl: String,
-        val isFavorite: Boolean = false
+        var isFavorite: Boolean = false
     ) : CharacterType() {
         override fun <T> map(mapper: CharacterMapperToUi<T>): T = mapper.map(this)
     }

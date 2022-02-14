@@ -2,6 +2,7 @@ package ru.nikolyashka.breakingbadsample.ui.favorites
 
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import ru.nikolyashka.breakingbadsample.ui.base.BaseCharacterViewModel
 import ru.nikolyashka.breakingbadsample.ui.characters.adapter.models.CharacterUiType
@@ -13,12 +14,12 @@ import javax.inject.Inject
 @HiltViewModel
 class FavoritesViewModel @Inject constructor(
     private val favoriteUseCase: FavoritesUseCase,
-    mapper: Mapper<List<CharacterUiType>, List<CharacterType>>,
+    private val mapper: Mapper<List<CharacterUiType>, List<CharacterType>>,
 ) : BaseCharacterViewModel(mapper) {
 
-    init {
-        viewModelScope.launch {
-            _characters.value = mapper.map(getData())
+    override fun onResume() {
+        viewModelScope.launch(Dispatchers.IO) {
+            _characters.postValue(mapper.map(getData()))
         }
     }
 

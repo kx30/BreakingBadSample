@@ -4,13 +4,11 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import ru.nikolyashka.breakingbadsample.databinding.ItemCharacterBinding
+import ru.nikolyashka.breakingbadsample.databinding.ItemCharacterFullScreenErrorBinding
 import ru.nikolyashka.breakingbadsample.databinding.ItemCharacterLoaderBottomBinding
 import ru.nikolyashka.breakingbadsample.databinding.ItemCharacterLoaderCenterBinding
 import ru.nikolyashka.breakingbadsample.ui.characters.adapter.CharacterDiffUtilsCallback.Companion.ON_FAVORITE_STATE_CHANGED
-import ru.nikolyashka.breakingbadsample.ui.characters.adapter.holders.CharacterBottomLoaderViewHolder
-import ru.nikolyashka.breakingbadsample.ui.characters.adapter.holders.CharacterCenterLoaderViewHolder
-import ru.nikolyashka.breakingbadsample.ui.characters.adapter.holders.CharacterViewHolder
-import ru.nikolyashka.breakingbadsample.ui.characters.adapter.holders.CommonCharacterViewHolder
+import ru.nikolyashka.breakingbadsample.ui.characters.adapter.holders.*
 import ru.nikolyashka.breakingbadsample.ui.characters.adapter.models.CharacterUiType
 import ru.nikolyashka.breakingbadsample.ui.characters.adapter.models.CharacterUiViewType
 
@@ -41,6 +39,9 @@ class CharacterAdapter(
         return when (viewType) {
             CharacterUiViewType.CHARACTER_UI_TYPE -> CharacterViewHolder( // Todo: Вынести в экстеншн
                 ItemCharacterBinding.inflate(layoutInflater, parent, false), listener
+            )
+            CharacterUiViewType.CHARACTER_FULL_SCREEN_ERROR -> CharacterFullScreenErrorViewHolder(
+                ItemCharacterFullScreenErrorBinding.inflate(layoutInflater, parent, false), listener
             )
             CharacterUiViewType.CHARACTER_CENTER_LOADER -> CharacterCenterLoaderViewHolder(
                 ItemCharacterLoaderCenterBinding.inflate(layoutInflater, parent, false), listener
