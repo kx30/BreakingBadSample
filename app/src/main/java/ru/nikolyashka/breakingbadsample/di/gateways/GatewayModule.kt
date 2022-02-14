@@ -5,8 +5,10 @@ import dagger.Module
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import ru.nikolyashka.breakingbadsample.di.network.ApiModule
+import ru.nikolyashka.gateway.gateway.RetrofitCharacterDetailsGateway
 import ru.nikolyashka.gateway.gateway.RetrofitCharacterGateway
 import ru.nikolyashka.gateway.gateway.RoomFavoritesGateway
+import ru.nikolyashka.gateways.CharacterDetailsGateway
 import ru.nikolyashka.gateways.CharacterGateway
 import ru.nikolyashka.gateways.FavoritesGateway
 
@@ -19,4 +21,7 @@ abstract class GatewayModule {
 
     @Binds
     abstract fun bindFavoriteGateway(roomFavoritesGateway: RoomFavoritesGateway): FavoritesGateway
+
+    @Binds
+    abstract fun bindCharacterDetailsGateway(retrofitCharacterDetailsGateway: RetrofitCharacterDetailsGateway): CharacterDetailsGateway
 }

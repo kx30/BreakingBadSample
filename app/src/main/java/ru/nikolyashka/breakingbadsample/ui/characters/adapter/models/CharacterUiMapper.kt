@@ -1,9 +1,9 @@
 package ru.nikolyashka.breakingbadsample.ui.characters.adapter.models
 
 import ru.nikolyashka.breakingbadsample.R
+import ru.nikolyashka.core.ErrorType
 import ru.nikolyashka.domain.CharacterMapperToUi
 import ru.nikolyashka.domain.CharacterType
-import ru.nikolyashka.error.ErrorType
 
 class CharacterUiMapper(private val type: Int) : CharacterMapperToUi<CharacterUiType> {
 
@@ -13,7 +13,7 @@ class CharacterUiMapper(private val type: Int) : CharacterMapperToUi<CharacterUi
                 id = character.id,
                 name = character.name,
                 imageUrl = character.imageUrl,
-                isFavorite = false
+                isFavorite = character.isFavorite
             )
         } else {
             throw IllegalArgumentException("incorrect type during mapping")
@@ -22,7 +22,7 @@ class CharacterUiMapper(private val type: Int) : CharacterMapperToUi<CharacterUi
 
     override fun map(characterError: CharacterType.CharacterErrorModel): CharacterUiType {
         val errorMessage = when (characterError.errorType) {
-            ErrorType.Common -> R.string.something_went_wrong
+            ErrorType.Unknown -> R.string.something_went_wrong
             ErrorType.NetworkUnavailable -> R.string.network_unavailable
         }
 

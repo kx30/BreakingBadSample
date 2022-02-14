@@ -6,5 +6,5 @@ interface FavoritesGateway {
 
     suspend fun getFavorites(): List<CharacterType.CharacterModel>
     suspend fun addToFavorite(character: CharacterType.CharacterModel)
-    suspend fun removeFromFavorite(id: Int)
+    suspend fun removeFromFavorite(character: CharacterType.CharacterModel)
 }

@@ -11,7 +11,8 @@ class CharacterFavoriteMapper :
         CharacterType.CharacterModel(
             id = it.id.toInt(),
             name = it.name,
-            imageUrl = it.imageUrl
+            imageUrl = it.imageUrl,
+            isFavorite = true
         )
     }
 }

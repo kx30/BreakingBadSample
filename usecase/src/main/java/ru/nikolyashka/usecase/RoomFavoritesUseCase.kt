@@ -11,8 +11,11 @@ class RoomFavoritesUseCase @Inject constructor(
     override suspend fun getFavoriteCharacters(): List<CharacterType.CharacterModel> =
         favoritesGateway.getFavorites()
 
-
-    override suspend fun changeFavoriteCharacter(character: CharacterType.CharacterModel) {
-        favoritesGateway.addToFavorite(character)
+    override suspend fun changeFavoriteCharacterState(character: CharacterType.CharacterModel) {
+        if (character.isFavorite) {
+            favoritesGateway.removeFromFavorite(character)
+        } else {
+            favoritesGateway.addToFavorite(character)
+        }
     }
 }

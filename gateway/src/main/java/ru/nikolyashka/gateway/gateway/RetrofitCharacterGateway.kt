@@ -1,6 +1,7 @@
 package ru.nikolyashka.gateway.gateway
 
 import ru.nikolyashka.core.Mapper
+import ru.nikolyashka.domain.CharacterDetailsType
 import ru.nikolyashka.domain.CharacterType
 import ru.nikolyashka.gateway.Api
 import ru.nikolyashka.gateway.Api.Companion.DEFAULT_OFFSET

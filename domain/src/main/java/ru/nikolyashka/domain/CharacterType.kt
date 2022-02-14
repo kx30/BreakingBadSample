@@ -1,6 +1,6 @@
 package ru.nikolyashka.domain
 
-import ru.nikolyashka.error.ErrorType
+import ru.nikolyashka.core.ErrorType
 
 sealed class CharacterType {
     abstract fun <T> map(mapper: CharacterMapperToUi<T>): T
@@ -8,7 +8,8 @@ sealed class CharacterType {
     data class CharacterModel(
         val id: Int,
         val name: String,
-        val imageUrl: String
+        val imageUrl: String,
+        val isFavorite: Boolean = false
     ) : CharacterType() {
         override fun <T> map(mapper: CharacterMapperToUi<T>): T = mapper.map(this)
     }

@@ -8,7 +8,7 @@ import ru.nikolyashka.gateways.FavoritesGateway
 import javax.inject.Inject
 
 class RoomFavoritesGateway @Inject constructor(
-    private val characterDao: CharacterDao,
+    private val characterDao: CharacterDao, // Todo: разобраться с мапперами
     private val mapperFromModelToEntity: Mapper<CharacterEntity, CharacterType.CharacterModel>,
     private val mapperFromEntityToModel: Mapper<CharacterType.CharacterModel, CharacterEntity>
 ) : FavoritesGateway {
@@ -20,7 +20,6 @@ class RoomFavoritesGateway @Inject constructor(
     override suspend fun addToFavorite(character: CharacterType.CharacterModel) =
         characterDao.insert(mapperFromModelToEntity.map(character))
 
-    override suspend fun removeFromFavorite(id: Int) {
-
-    }
+    override suspend fun removeFromFavorite(character: CharacterType.CharacterModel) =
+        characterDao.delete(mapperFromModelToEntity.map(character))
 }

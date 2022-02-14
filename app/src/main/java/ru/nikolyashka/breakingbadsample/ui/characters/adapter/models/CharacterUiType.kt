@@ -10,7 +10,8 @@ sealed class CharacterUiType(val viewType: Int) {
         override fun map(character: CharacterUiModel): CharacterType.CharacterModel = CharacterType.CharacterModel(
             id = character.id,
             name = character.name,
-            imageUrl = character.imageUrl
+            imageUrl = character.imageUrl,
+            isFavorite = character.isFavorite
         )
     }
 

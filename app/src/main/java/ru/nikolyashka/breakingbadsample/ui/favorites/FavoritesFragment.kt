@@ -1,12 +1,18 @@
 package ru.nikolyashka.breakingbadsample.ui.favorites
 
 import androidx.fragment.app.viewModels
-import ru.nikolyashka.breakingbadsample.databinding.FragmentFavoritesBinding
-import ru.nikolyashka.breakingbadsample.ui.base.BaseFragment
+import androidx.navigation.fragment.findNavController
+import dagger.hilt.android.AndroidEntryPoint
+import ru.nikolyashka.breakingbadsample.ui.base.BaseCharacterFragment
 
-class FavoritesFragment : BaseFragment<FragmentFavoritesBinding>() {
+@AndroidEntryPoint
+class FavoritesFragment : BaseCharacterFragment() {
 
     override val viewModel: FavoritesViewModel by viewModels()
 
-    override fun getViewBinding(): FragmentFavoritesBinding = FragmentFavoritesBinding.inflate(layoutInflater)
+
+    override fun openCharacterDetails(characterId: Int) {
+        FavoritesFragmentDirections.openCharacterDetailsFragment(characterId)
+            .let(findNavController()::navigate)
+    }
 }

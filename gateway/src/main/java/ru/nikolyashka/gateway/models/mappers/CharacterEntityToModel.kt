@@ -10,6 +10,7 @@ class CharacterEntityToModel @Inject constructor() : Mapper<CharacterType.Charac
     override fun map(source: CharacterEntity): CharacterType.CharacterModel = CharacterType.CharacterModel(
         id = source.id.toInt(),
         name = source.name,
-        imageUrl = source.imageUrl
+        imageUrl = source.imageUrl,
+        isFavorite = true
     )
 }

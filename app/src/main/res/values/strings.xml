@@ -1,7 +1,11 @@
 <resources>
     <string name="app_name">BreakingBadSample</string>
-    <string name="favorites">Избранные</string>
-    <string name="characters">Персонажи</string>
+    <string name="favorites">Favorites</string>
+    <string name="characters">Characters</string>
+    <string name="character_nickname">%s a.k.a %s</string>
+    <string name="character_birthday">Birthday is: %s</string>
+
+    <string name="try_again">Try again</string>
 
     <string name="network_unavailable">Network unavailable. Try again</string>
     <string name="something_went_wrong">Something went wrong. Try again</string>

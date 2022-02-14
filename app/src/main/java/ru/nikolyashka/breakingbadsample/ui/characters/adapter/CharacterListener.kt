@@ -5,5 +5,6 @@ import ru.nikolyashka.breakingbadsample.ui.characters.adapter.models.CharacterUi
 interface CharacterListener {
 
     fun addToFavorite(character: CharacterUiType.CharacterUiModel)
+    fun openCharacterDetails(characterId: Int)
     fun loadCharacters()
 }

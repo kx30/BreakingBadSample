@@ -2,6 +2,7 @@ package ru.nikolyashka.breakingbadsample.ui.base
 
 import android.os.Bundle
 import android.view.View
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import ru.nikolyashka.breakingbadsample.databinding.FragmentCharactersBinding
 import ru.nikolyashka.breakingbadsample.ui.characters.adapter.CharacterAdapter

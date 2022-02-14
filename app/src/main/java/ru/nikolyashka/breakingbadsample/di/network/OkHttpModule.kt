@@ -29,6 +29,6 @@ class OkHttpModule {
     }
 
     companion object {
-        private const val DEFAULT_TIMEOUT = 30L
+        private const val DEFAULT_TIMEOUT = 5L
     }
 }

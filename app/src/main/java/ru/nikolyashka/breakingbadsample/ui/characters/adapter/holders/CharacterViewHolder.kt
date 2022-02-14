@@ -25,6 +25,9 @@ class CharacterViewHolder(
         binding.flItemCharacterFavorite.setOnClickListener {
             listener.addToFavorite(character)
         }
+        binding.root.setOnClickListener {
+            listener.openCharacterDetails(character.id)
+        }
     }
 
     fun setFavoriteIcon(isChecked: Boolean) {
